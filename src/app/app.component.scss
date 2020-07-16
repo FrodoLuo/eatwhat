@@ -1,0 +1,60 @@
+.app {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .random-btn {
+      height: 80px;
+      width: 120px;
+      display: block;
+      margin: 10px;
+
+      button {
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    .result {
+      font-size: 24px;
+      flex: 1;
+      color: purple;
+      margin: 40px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .meta-info {
+        margin: 4px 0;
+    }
+    .buttom-button {
+        margin-bottom: 8px;
+    }
+  }
+
+  footer {
+      height: 64px;
+      width: 100%;
+      box-shadow: 0 -1px 3px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px;
+      box-sizing: border-box;
+      mat-form-field {
+          flex: 1;
+      }
+      input {
+          font-size: 16px;
+      }
+  }
+}
