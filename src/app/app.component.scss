@@ -11,50 +11,57 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+
     .random-btn {
-      height: 80px;
-      width: 120px;
+      height: 200px;
+      width: 200px;
       display: block;
       margin: 10px;
 
       button {
-        box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
         height: 100%;
         width: 100%;
-      }
-    }
+        font-size: 24px;
 
-    .result {
-      font-size: 24px;
-      flex: 1;
-      color: purple;
-      margin: 40px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .meta-info {
-        margin: 4px 0;
-    }
-    .buttom-button {
-        margin-bottom: 8px;
+        .btn-content {
+          transition: all ease 0.25s;
+        }
+
+        &.animating .btn-content {
+          filter: blur(30px);
+          animation: rotating 0.5s ease infinite;
+
+          @keyframes rotating {
+            0% {
+              transform: rotate(0);
+            }
+
+            100% {
+              transform: rotate(1440deg);
+            }
+          }
+        }
+      }
     }
   }
 
-  footer {
-      height: 64px;
-      width: 100%;
-      box-shadow: 0 -1px 3px rgba(0,0,0,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 4px;
-      box-sizing: border-box;
-      mat-form-field {
-          flex: 1;
-      }
-      input {
-          font-size: 16px;
-      }
+  .hint {
+    position: fixed;
+    right: 60px;
+    bottom: 60px;
+  }
+
+  .operators {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    button {
+      margin-top: 16px;
+    }
   }
 }

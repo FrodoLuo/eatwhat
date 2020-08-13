@@ -1,0 +1,16 @@
+.top-actions {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px gray solid;
+}
+
+.list {
+  height: 50vh;
+  overflow: auto;
+
+  .list-item-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+}

@@ -1,33 +1,26 @@
 <div class="app">
 
   <main>
-    <div class="result">
-      <ng-container *ngIf="(result$ | async)!==null">
-        {{(result$ | async).name}}
-      </ng-container>
-      <ng-container *ngIf="(result$ | async)===null">
-        &nbsp;
-      </ng-container>
-    </div>
-    <div>
-      Click ↓ To Random Eat
-    </div>
     <div class="random-btn">
-      <button mat-button color="primary" size="large" (click)="randomFromLocal()">From Local</button>
+      <button mat-fab [disabled]="(restaurants$ | async).length === 0" color="primary" [class.animating]="animating"
+        size="large" (click)="randomClick$.next($event)">
+        <div class="btn-content">
+          <ng-container *ngIf="!(result$ | async)">
+            在{{(restaurants$|async).length}}个候选中<br />随机
+          </ng-container>
+          <ng-container *ngIf="(result$ | async)">
+            {{(result$ | async).name}}
+          </ng-container>
+        </div>
+      </button>
     </div>
-    <div class="random-btn">
-      <button mat-button color="primary" size="large" (click)="randomFromNetwork()">From Network</button>
-    </div>
-    <div class="meta-info">
-      Current Local Candidate: {{(restaurants$ | async).length}}
-    </div>
-    <button class="buttom-button" mat-button (click)="clear()">Clear Local</button>
   </main>
-  <footer>
-    <mat-form-field>
-      <mat-label>Add a candidator</mat-label>
-      <input matInput #name />
-    </mat-form-field>
-    <button [disabled]="name.value.length < 1" mat-button (click)="add(name.value); name.value=''">Add!</button>
-  </footer>
+  <div class="hint" *ngIf="(restaurants$ | async).length === 0">
+    点这里添加候选↘
+  </div>
+  <div class="operators">
+    <button mat-fab color="primary" (click)="openSheet()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
 </div>

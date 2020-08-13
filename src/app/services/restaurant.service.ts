@@ -34,10 +34,6 @@ export class RestaurantService {
       current.splice(index, 1);
     }
     this.restaurants$.next(current);
-  }
-
-  public clear() {
-    this.restaurants$.next([]);
     this.saveToStorage();
   }
 
@@ -47,8 +43,10 @@ export class RestaurantService {
     if (range === 0) {
       return null;
     }
-
-    const randomed = Math.floor(Math.random() * range);
+    let randomed = Math.floor(Math.random() * range);
+    while (range > 1 && current[randomed] === this.randomedRestaurant$.getValue()) {
+      randomed = Math.floor(Math.random() * range);
+    }
     this.randomedRestaurant$.next(current[randomed]);
   }
 

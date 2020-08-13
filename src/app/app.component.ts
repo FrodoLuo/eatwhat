@@ -1,23 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import { GeolocationService } from './services/geolocation.service';
-import { IRestaurant, RestaurantService } from './services/restaurant.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { RestaurantService } from './services/restaurant.service';
+import { Subject, Subscription } from 'rxjs';
+import { delay } from 'rxjs/operators';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { SheetComponent } from './components/sheet/sheet.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
-    private restaurantService: RestaurantService
+    private restaurantService: RestaurantService,
+    private bottomSheet: MatBottomSheet
   ) { }
   title = 'eatwhat';
 
-  public restaurants$ = this.restaurantService.restaurants$;
+  private subscription: Subscription = new Subscription();
 
   public result$ = this.restaurantService.randomedRestaurant$;
+
+  public randomClick$: Subject<MouseEvent> = new Subject<MouseEvent>();
+
+  public restaurants$ = this.restaurantService.restaurants$;
+
+  public animating = false;
+
+  public ngOnInit() {
+    this.subscription.add(this.randomClick$.subscribe(this.randomFromLocal.bind(this)));
+    this.subscription.add(this.result$.pipe(delay(500)).subscribe(_ => this.animating = false));
+  }
+
+  public ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   public randomFromLocal() {
+    if (this.animating) {
+      return;
+    }
+    this.animating = true;
     this.restaurantService.random();
   }
 
@@ -25,13 +49,8 @@ export class AppComponent {
     this.restaurantService.fromNetwork();
   }
 
-  public add(name: string) {
-    this.restaurantService.addRestaurant({
-      name
-    });
+  public openSheet() {
+    this.bottomSheet.open(SheetComponent);
   }
 
-  public clear() {
-    this.restaurantService.clear();
-  }
 }

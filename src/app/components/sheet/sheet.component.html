@@ -1,0 +1,17 @@
+<div class="top-actions">
+  <mat-form-field>
+    <mat-label>Add a candidator</mat-label>
+    <input matInput #name />
+  </mat-form-field>
+  <button [disabled]="name.value.length < 1" mat-button (click)="add(name.value); name.value=''">Add!</button>
+</div>
+<mat-list class="list">
+  <mat-list-item class="list-item" *ngFor="let i of (restaurants$ | async)">
+    <div class="list-item-content">
+      <span>{{i.name}}</span>
+      <span><button mat-button (click)="delete(i)">
+          <mat-icon>delete</mat-icon>
+        </button></span>
+    </div>
+  </mat-list-item>
+</mat-list>
