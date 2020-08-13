@@ -66,6 +66,10 @@ export class GeolocationService {
     });
   }
 
+  public isOnline() {
+    return this.checkSupport();
+  }
+
   private checkSupport() {
     if (!navigator.geolocation) {
       return false;

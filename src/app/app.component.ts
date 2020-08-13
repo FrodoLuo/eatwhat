@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  public result$ = this.restaurantService.randomedRestaurant$;
+  public result$ = this.restaurantService.randomedRestaurant$.pipe(delay(250));
 
   public randomClick$: Subject<MouseEvent> = new Subject<MouseEvent>();
 
@@ -30,7 +30,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this.subscription.add(this.randomClick$.subscribe(this.randomFromLocal.bind(this)));
-    this.subscription.add(this.result$.pipe(delay(500)).subscribe(_ => this.animating = false));
+    this.subscription.add(this.result$.pipe(delay(250)).subscribe(_ => this.animating = false));
   }
 
   public ngOnDestroy() {

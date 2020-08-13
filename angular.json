@@ -127,6 +127,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "eatwhat"
+    }
+  },
+  "defaultProject": "eatwhat",
+  "cli": {
+    "analytics": "cc6d64b6-1b44-4815-acf5-953e43771c78"
+  }
 }

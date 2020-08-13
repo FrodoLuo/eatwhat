@@ -64,7 +64,9 @@ export class RestaurantService {
   public async fromNetwork() {
     (await this.geolocationService.getNearby())
       .subscribe(res => {
-        this.randomFromGiven(res);
+        const newNet = res.filter(rest => !this.restaurants$.getValue().find(r => r.name === rest.name))
+        this.restaurants$.next(this.restaurants$.getValue().concat(newNet))
+        this.saveToStorage();
       });
   }
 

@@ -10,8 +10,9 @@
     <div class="list-item-content">
       <span>{{i.name}}</span>
       <span><button mat-button (click)="delete(i)">
-          <mat-icon>delete</mat-icon>
-        </button></span>
+        <mat-icon>delete</mat-icon>
+      </button></span>
     </div>
   </mat-list-item>
 </mat-list>
+<button *ngIf="online" mat-flat-button color="primary" (click)="updateFromNetwork()">拉取附近(极其不准)</button>
